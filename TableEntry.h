@@ -1,5 +1,5 @@
 #ifndef TABLEENTRY_H
-#define TABLEENTRY
+#define TABLEENTRY_H
 
 #include <string>
 #include <ostream>
@@ -20,13 +20,13 @@ class TableEntry {
 		// Constructor sin valor
 		TableEntry(std::string key) {
 			this->key = key;
-			this->value = NULL;
+			this->value = V();
 		}
 
 		// Constructor sin parámetros
 		TableEntry() {
 			this->key = "";
-			this->value = NULL;
+			this->value = V();
 		}
 
 		friend bool operator==(const TableEntry<V> &te1, const TableEntry<V> &te2) {
@@ -38,7 +38,7 @@ class TableEntry {
 		}
 
 		friend std::ostream& operator<<(std::ostream &out, const TableEntry<V> &te) {
-			out << te.key << " -> " << te.value << std::endl;
+			out << te.key << " -> " << te.value;
 			return out;
 		}
 };
