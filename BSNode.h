@@ -18,8 +18,8 @@ class BSNode {
 		}
 
 		// Sobrecarga del operador
-		friend std::ostream operator<<(std::ostream &out, const BSNode<T> &bsn) {
-			out << bsn.elem << std::endl;
+		friend std::ostream &operator<<(std::ostream &out, const BSNode<T> &bsn)  {
+			out << bsn.elem;
 			return out;
 		}
 };
