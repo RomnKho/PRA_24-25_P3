@@ -5,7 +5,7 @@
 template <typename V>
 class Dict {
 	public:
-		virtual void insert(std::string, V key) = 0;
+		virtual void insert(std::string key, V value) = 0;
 
 		virtual V search(std::string key) = 0;
 
