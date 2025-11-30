@@ -21,7 +21,7 @@ class BSTree {
 			return nelem;
 		}
 
-/* ========================= BÚSQUEDA DE ELEMENTOS ================================================================================ */
+/* ===================== BÚSQUEDA DE ELEMENTOS ============================= */
 
 	private:
 		// Método recursivo de búsqueda de un elemento
@@ -56,7 +56,7 @@ class BSTree {
 			return search(e);	
 		}
 
-/* ========================= INSERCIÓN DE ELEMENTOS =============================================================================== */
+/* ==================== INSERCIÓN DE ELEMENTOS ======================== */
 
 	private:
 		// Método recursivo que inserta el elemento en el arbol ordenado
@@ -89,7 +89,7 @@ class BSTree {
 			nelem++;
 		}
 
-/* ========================= RECORRIDO E IMPRESIÓN DEL ÁRBOL ===================================================================== */
+/* =================== RECORRIDO E IMPRESIÓN DEL ÁRBOL =============== */
 
 	private:
 		//  Recorrido inorden (Imprime los elementos de menor a mayor)
@@ -112,7 +112,7 @@ class BSTree {
 			return out;
 		}
 
-/* ========================= ELIMINACIÓN DE OBJETOS =============================================================================== */
+/* ==================== ELIMINACIÓN DE OBJETOS ========================= */
 		
 	private: 
 		// Método recursivo que devuelve el máximo de un árbol
@@ -179,6 +179,24 @@ class BSTree {
 		void remove(T e) {
 			root = remove(root, e);
 			nelem--;
+		}
+
+/* ==================== DESTRUCCIÓN ===================== */
+
+	private:
+		// Método recursivo para liberación de memoria dinámica
+		void delete_cascada(BSNode<T> *n) {
+			if(n != nullptr) {
+				delete_cascada(n->left);
+				delete_cascada(n->right);
+				delete n;
+			}
+		}
+
+	public:
+		// Método lanzadera
+		~BSTree() {
+			delete_cascada(root);
 		}
 		
 };
