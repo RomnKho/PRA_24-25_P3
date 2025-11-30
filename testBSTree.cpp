@@ -82,7 +82,7 @@ int main()
                       std::cout << bstree.search(20) << std::endl;
     std::cout << "cout << bstree: " << std::endl << bstree << std::endl;
     std::cout << std::endl; 
-/*
+
     try {
         bstree.search(0);
         std::cout << "bstree.search(0) => ERROR! It did not throw std::runtime_error... :(" << std::endl;
@@ -167,7 +167,7 @@ int main()
     std::cout << "bstree.size(): " << bstree.size() << std::endl;
     std::cout << "cout << bstree: " << std::endl << bstree << std::endl;
     std::cout << std::endl; 
-*/
+
     return 0;
 }
 

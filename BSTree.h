@@ -21,7 +21,7 @@ class BSTree {
 			return nelem;
 		}
 
-/* ============================== BÚSQUEDA DE ELEMENTOS ==========================================================================*/
+/* ========================= BÚSQUEDA DE ELEMENTOS ================================================================================ */
 
 	private:
 		// Método recursivo de búsqueda de un elemento
@@ -56,7 +56,7 @@ class BSTree {
 			return search(e);	
 		}
 
-/* ========================== INSERCIÓN DE ELEMENTOS =============================================================================== */
+/* ========================= INSERCIÓN DE ELEMENTOS =============================================================================== */
 
 	private:
 		// Método recursivo que inserta el elemento en el arbol ordenado
@@ -64,7 +64,6 @@ class BSTree {
 		BSNode<T> *insert(BSNode<T> *n, T e) {
 			// Si no apunta a ninguno
 			if(n == nullptr) {
-				nelem++;
                                 return new BSNode<T>(e);
                         }
 			// Si ya se encuentra en el árbol
@@ -87,9 +86,10 @@ class BSTree {
 		// Método lanzadera
 		void insert(T e) {
 			root = insert(root, e);
+			nelem++;
 		}
 
-/*========================== RECORRIDO E IMPRESIÓN DEL ÁRBOL =======================================================================*/
+/* ========================= RECORRIDO E IMPRESIÓN DEL ÁRBOL ===================================================================== */
 
 	private:
 		//  Recorrido inorden (Imprime los elementos de menor a mayor)
@@ -112,7 +112,74 @@ class BSTree {
 			return out;
 		}
 
+/* ========================= ELIMINACIÓN DE OBJETOS =============================================================================== */
+		
+	private: 
+		// Método recursivo que devuelve el máximo de un árbol
+		T max(BSNode<T> *n) const {
+			if(n == nullptr) {
+				throw std::runtime_error("No hay raíz por la que empezar a buscar");
+			} else if (n->right != nullptr){
+				// El elemento máximo se encuentra a la derecha del todo
+				// Si no hemos llegado ahí seguimos recorriendo el árbol
+				return max(n->right);
+			} else {
+				// Si ha lleago al final devuelvo el elemento
+				return n->elem;
+			}
+		}
 
+		BSNode<T> *remove_max(BSNode<T> *n) {
+			if(n == nullptr) {
+				throw std::runtime_error("No se puede eliminar el máximo sin árbol");
+			}
+			// Recorro el arbol hasta llegar al elemento más a la derecha (el mayor)
+			// Si tiene elementos a la izquierda se reemplazan
+			else if(n->right == nullptr) {
+				return n->left;
+			} else {
+				n->right = remove_max(n->right);
+				return n;
+			}
+		}
+
+		BSNode<T> *remove(BSNode<T> *n, T e) {
+			if(n == nullptr) {
+				throw std::runtime_error("No existe el elemento a eliminar");
+			}
+			// Búsqueda del elemento
+			else if(e < n->elem) {
+				n->left = remove(n->left, e);
+			} else if(e > n->elem) {
+				n->right = remove(n->right, e);
+			} 
+			// Se encuentra el elemento
+			else {
+				// Si tiene nodos a la derecha y a la izquierda 
+				// elimino el nodo y lo sustituyo por el maximo del arbol izquierdo
+				if(n->left != nullptr && n->right != nullptr) {
+					n->elem = max(n->left);
+					n->left = remove_max(n->left);
+				} 
+				// En el caso de que haya 1 ó 0 descendientes
+				else {
+					// Si n->left no es nullptr, se sustituye por el
+					// Si n->left es nullptr, se sustituye por el de la derecha
+					// Si n->left es nullptr y n->right es nullptr, n va a pasar a valer nullpr
+					// (Se elimina)
+					n = (n->left != nullptr) ? n->left : n->right;
+				}
+			}
+			// Devuelvo el nodo modificado
+			return n;
+		}
+
+	public:
+		// Método lanzadera
+		void remove(T e) {
+			root = remove(root, e);
+			nelem--;
+		}
 		
 };
 	
