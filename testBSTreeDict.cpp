@@ -11,7 +11,7 @@ int main() {
 	std::cout << std::endl; 
 
 	std::cout << "dict.insert('c', 3) ..." << std::endl;
-	dict.insert("c", 3);
+	dict.insert("c", 3); 
 	std::cout << "dict.insert('f', 6) ..." << std::endl;
 	dict.insert("f", 6);
 	std::cout << "dict.insert('a', 1) ..." << std::endl;
